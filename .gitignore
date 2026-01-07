@@ -1,0 +1,7 @@
+*.pyc
+__pycache__/
+/firefox/
+*.tar.bz2
+db.sqlite3
+.venv/
+venv/

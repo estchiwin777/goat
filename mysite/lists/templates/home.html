@@ -4,14 +4,25 @@
   </head>
   <body>
     <h1>Your To-Do list</h1>
+    
     <form method="POST">
       <input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
       {% csrf_token %}
     </form>
+
     <table id="id_list_table">
       {% for item in items %}
         <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
       {% endfor %}
     </table>
+
+    <hr> <div style="margin-top: 20px;">
+        <p>Go to <a href="{% url 'about' %}"> About Page</a></p>
+
+        <a href="{% url 'about' %}" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">
+            Go to About
+        </a>
+    </div>
+
   </body>
 </html>

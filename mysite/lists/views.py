@@ -9,6 +9,6 @@ def home_page(request):
     items = Item.objects.all()
     return render(request, "home.html", {"items": items})
 
-# add about page
+# about
 def about(request):
     return render(request, 'about.html')

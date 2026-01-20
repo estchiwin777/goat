@@ -11,7 +11,11 @@ def view_list(request, list_id):
 
 def add_item(request, list_id):
     our_list = List.objects.get(id=list_id)
-    Item.objects.create(text=request.POST['item_text'], list=our_list)
+    Item.objects.create(
+        text=request.POST['item_text'], 
+        list=our_list, 
+        priority=request.POST.get('item_priority', 'M') # เพิ่มส่วนนี้
+    )
     return redirect(f'/lists/{our_list.id}/')
 
 def about(request):
@@ -19,5 +23,9 @@ def about(request):
 
 def new_list(request):
     nulist = List.objects.create()
-    Item.objects.create(text=request.POST["item_text"], list=nulist)
+    Item.objects.create(
+        text=request.POST["item_text"], 
+        list=nulist, 
+        priority=request.POST.get('item_priority', 'M') # เพิ่มส่วนนี้
+    )
     return redirect(f"/lists/{nulist.id}/")

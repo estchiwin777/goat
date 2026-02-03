@@ -6,3 +6,4 @@ db.sqlite3
 .venv/
 venv/
 /static
+src/db.sqlite3

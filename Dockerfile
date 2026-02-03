@@ -8,4 +8,5 @@ COPY . /src
 
 WORKDIR /src  
 
-CMD ["/venv/bin/python", "manage.py", "runserver", "0.0.0.0:8888"]
+# สั่งให้รัน migrate ก่อน แล้วค่อยรัน server
+CMD ["sh", "-c", "/venv/bin/python manage.py migrate && /venv/bin/python manage.py runserver 0.0.0.0:8888"]

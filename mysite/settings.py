@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_
 DEBUG = True
 
 ALLOWED_HOSTS = ['goat-production-afa2.up.railway.app', 'localhost', '127.0.0.1']
-
+# เพิ่มโดเมนของคุณเข้าไปในลิสต์นี้ (ต้องมี https:// นำหน้า)
+CSRF_TRUSTED_ORIGINS = ['https://goat-production-afa2.up.railway.app']
 
 # Application definition
 

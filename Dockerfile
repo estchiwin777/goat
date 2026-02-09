@@ -14,5 +14,8 @@ RUN python manage.py collectstatic --noinput
 # 2. ตั้งค่าให้ Django รู้ว่าตอนนี้คือโหมด Production (DEBUG=False)
 ENV DJANGO_DEBUG_FALSE=1
 
+RUN adduser --uid 1234 nonroot
+USER nonroot
+
 # สั่งให้รัน migrate ก่อน แล้วค่อยรัน server
 CMD ["gunicorn", "--bind", "0.0.0.0:8888", "mysite.wsgi:application"]

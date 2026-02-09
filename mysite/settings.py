@@ -23,7 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if "DJANGO_DEBUG_FALSE" in os.environ:  
+    DEBUG = False
+    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]  
+else:
+    DEBUG = True  
+    SECRET_KEY = "insecure-key-for-dev"
 
 ALLOWED_HOSTS = ['goat-production-afa2.up.railway.app', 'localhost', '127.0.0.1']
 # เพิ่มโดเมนของคุณเข้าไปในลิสต์นี้ (ต้องมี https:// นำหน้า)

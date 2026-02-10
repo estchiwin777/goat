@@ -34,7 +34,13 @@ else:
     ALLOWED_HOSTS = []
     db_path = BASE_DIR / "db.sqlite3"
 
-ALLOWED_HOSTS = ['www.supydev.app', 'goat-production-afa2.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'www.supydev.app', 
+    'supydev.app', 
+    'tupyeaiz.up.railway.app', 
+    'localhost', 
+    '127.0.0.1'
+]
 # เพิ่มโดเมนของคุณเข้าไปในลิสต์นี้ (ต้องมี https:// นำหน้า)
 CSRF_TRUSTED_ORIGINS = ['https://goat-production-afa2.up.railway.app']
 

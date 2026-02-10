@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, render
 from lists.models import Item, List
 
 def home_page(request):

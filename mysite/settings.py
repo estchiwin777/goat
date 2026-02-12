@@ -41,8 +41,16 @@ ALLOWED_HOSTS = [
     'localhost', 
     '127.0.0.1'
 ]
-# เพิ่มโดเมนของคุณเข้าไปในลิสต์นี้ (ต้องมี https:// นำหน้า)
-CSRF_TRUSTED_ORIGINS = ['https://goat-production-afa2.up.railway.app']
+# 1. ดึงค่าจาก Environment Variable ที่ตั้งไว้ใน Railway (image_fc3761.png)
+csrf_trusted_origins = os.environ.get("CSRF_TRUSTED_ORIGINS")
+
+# 2. ตรวจสอบและกำหนดค่าให้ Django
+if csrf_trusted_origins:
+    # ใช้ค่าจาก Railway (ซึ่งตอนนี้คุณตั้งเป็น https://www.supydev.app ไว้แล้ว)
+    CSRF_TRUSTED_ORIGINS = [csrf_trusted_origins]
+else:
+    # ค่าเริ่มต้นสำหรับรันในเครื่องตัวเอง (Local)
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:8888', 'http://127.0.0.1:8888']
 
 # Application definition
 

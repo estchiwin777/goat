@@ -37,7 +37,7 @@ else:
 ALLOWED_HOSTS = [
     'www.supydev.app', 
     'supydev.app', 
-    'tupyeaiz.up.railway.app', 
+    'goat-production-afa2.up.railway.app', 
     'localhost', 
     '127.0.0.1'
 ]

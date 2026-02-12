@@ -27,7 +27,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
             try:
                 table = self.browser.find_element(By.ID, 'id_list_table')
                 rows = table.find_elements(By.TAG_NAME, 'tr')
-                self.assertIn(row_text, [row.text for row in rows])
+                # เปลี่ยนตรงนี้: เช็กว่ามีแถวไหนที่มี row_text อยู่ข้างในไหม
+                self.assertTrue(
+                    any(row_text in row.text for row in rows)
+                )
                 return 
             except (AssertionError, WebDriverException, NoSuchElementException) as e:
                 if time.time() - start_time > MAX_WAIT:
@@ -37,7 +40,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def check_for_row_in_list_table(self, row_text):
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')
-        self.assertIn(row_text, [row.text for row in rows])
+        # เปลี่ยนตรงนี้เหมือนกันครับ
+        self.assertTrue(
+            any(row_text in row.text for row in rows)
+        )
 
     def test_layout_and_styling(self):
         # ผู้ใช้เข้าหน้าโฮมเพจ

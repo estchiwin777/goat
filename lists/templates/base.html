@@ -1,18 +1,27 @@
-{% load static %} <!doctype html>
+{% load static %}
+<!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
     <title>To-Do lists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <style>
+      /* กำหนดให้หน้าจอเพื่อให้สีดำครอบคลุมทั้งหน้า */
+      body {
+        min-height: 100vh;
+        padding-top: 50px;
+      }
+    </style>
   </head>
 
   <body>
     <div class="container">
-
-      <div class="row justify-content-center p-5 bg-body-tertiary rounded-3">
-        <div class="col-lg-6 text-center">
-          <h1 class="display-1 mb-4">{% block header_text %}{% endblock %}</h1>
+      <div class="row"> 
+        <div class="col-md-6 offset-md-3 text-center">
+          <h1>{% block header_text %}{% endblock %}</h1>
 
           <form method="POST" action="{% block form_action %}{% endblock %}">
             <input 
@@ -23,9 +32,9 @@
             />
             
             <select name="item_priority" id="id_item_priority" class="form-select mt-2">
-            <option value="High">High</option>
-            <option value="Medium" selected>Medium</option>
-            <option value="Low">Low</option>
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
             </select>
 
             {% csrf_token %}
@@ -34,13 +43,12 @@
         </div>
       </div>
 
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
+      <div class="row mt-4">
+        <div class="col-md-8 offset-md-2">
           {% block table %}
           {% endblock %}
         </div>
       </div>
-
     </div>
   </body>
 </html>

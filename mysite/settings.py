@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_
 if "DJANGO_DEBUG_FALSE" in os.environ:  
     DEBUG = False
     SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-    ALLOWED_HOSTS = [os.environ["DJANGO_ALLOWED_HOST"]]
+    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOST", "*")]
     db_path = os.environ.get("DJANGO_DB_PATH", "/tmp/db.sqlite3")
 else:
     DEBUG = True  

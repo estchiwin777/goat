@@ -7,26 +7,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_')
 
-# ตรวจสอบว่ารันบน Production หรือไม่
-if "DJANGO_DEBUG_FALSE" in os.environ:  
+# แก้ไขส่วนนี้เพื่อให้สลับ Debug ได้จริงจากหน้าเว็บ
+debug_var = os.environ.get("DJANGO_DEBUG_FALSE", "False") # ดึงค่าจากหน้าเว็บ
+if debug_var.lower() in ["true", "1", "t"]:
     DEBUG = False
-    # ดึงค่าจาก Railway Variables
-    db_path = os.environ.get("DJANGO_DB_PATH", "/tmp/db.sqlite3")
-    
-    # รวม Domain ทั้งหมดไว้ที่เดียวเพื่อป้องกันการเขียนทับ (Overwrite)
-    ALLOWED_HOSTS = [
-        os.environ.get("DJANGO_ALLOWED_HOST", "*"), # ดึงจาก Variable ถ้าไม่มีให้ใช้ *
-        'www.supydev.app', 
-        'supydev.app', 
-        'goat-production-afa2.up.railway.app', 
-        'localhost', 
-        '127.0.0.1'
-    ]
 else:
-    DEBUG = True  
-    SECRET_KEY = "insecure-key-for-dev"
-    ALLOWED_HOSTS = ['*']
-    db_path = BASE_DIR / "db.sqlite3"
+    DEBUG = True # ถ้าตั้งเป็น false ในหน้าเว็บ มันจะตกมาที่นี่และเปิดหน้าจอสีเหลืองครับ
+
+# ALLOWED_HOSTS ต้องครอบคลุม
+ALLOWED_HOSTS = ['*'] # ใส่ * ไปก่อนเพื่อเช็คว่าติดเรื่อง Domain หรือเปล่า
+
+# แก้ไขส่วน Database ให้ยืดหยุ่น
+db_path = os.environ.get("DJANGO_DB_PATH", str(BASE_DIR / "db.sqlite3"))
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': db_path,
+    }
+}
 
 # แก้ไข CSRF_TRUSTED_ORIGINS (ตัวการที่ทำให้ Error 500)
 CSRF_TRUSTED_ORIGINS = [

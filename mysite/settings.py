@@ -28,12 +28,12 @@ else:
     ALLOWED_HOSTS = ['*']
     db_path = BASE_DIR / "db.sqlite3"
 
-# การตั้งค่า CSRF
-csrf_trusted_origins = os.environ.get("CSRF_TRUSTED_ORIGINS")
-if csrf_trusted_origins:
-    CSRF_TRUSTED_ORIGINS = [csrf_trusted_origins]
-else:
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:8888', 'http://127.0.0.1:8888']
+# แก้ไข CSRF_TRUSTED_ORIGINS (ตัวการที่ทำให้ Error 500)
+CSRF_TRUSTED_ORIGINS = [
+    'https://www.supydev.app',
+    'https://supydev.app',
+    'https://goat-production-afa2.up.railway.app'
+]
 
 # Application definition
 INSTALLED_APPS = [

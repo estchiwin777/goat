@@ -22,7 +22,7 @@ db_path = os.environ.get("DJANGO_DB_PATH", str(BASE_DIR / "db.sqlite3"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': db_path,
+        'NAME': '/src/db.sqlite3',
     }
 }
 

@@ -20,4 +20,4 @@ RUN adduser --uid 1234 nonroot && chown -R nonroot:nonroot /src /venv
 USER nonroot
 
 # 5. สั่งรันแอปบนพอร์ต 8080 (ให้ตรงกับ Networking)
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "mysite.wsgi:application"]
+CMD ["/src/start.sh"]

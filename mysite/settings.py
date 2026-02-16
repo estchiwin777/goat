@@ -7,17 +7,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_')
 
-# แก้ไขส่วนนี้เพื่อให้สลับ Debug ได้จริงจากหน้าเว็บ
-debug_var = os.environ.get("DJANGO_DEBUG_FALSE", "False") # ดึงค่าจากหน้าเว็บ
+# 1. แก้ไขส่วนสลับโหมด Debug (ให้ดึงค่าจาก Railway ได้จริง)
+debug_var = os.environ.get("DJANGO_DEBUG_FALSE", "False")
 if debug_var.lower() in ["true", "1", "t"]:
     DEBUG = False
 else:
-    DEBUG = True # ถ้าตั้งเป็น false ในหน้าเว็บ มันจะตกมาที่นี่และเปิดหน้าจอสีเหลืองครับ
+    DEBUG = True
 
-# ALLOWED_HOSTS ต้องครอบคลุม
-ALLOWED_HOSTS = ['*'] # ใส่ * ไปก่อนเพื่อเช็คว่าติดเรื่อง Domain หรือเปล่า
+# 2. ALLOWED_HOSTS ครอบคลุมทุกช่องทาง
+ALLOWED_HOSTS = ['*']
 
-# แก้ไขส่วน Database ให้ยืดหยุ่น
+# 3. จัดการเรื่อง Database (เหลือจุดเดียว ป้องกันการเขียนทับ)
 db_path = os.environ.get("DJANGO_DB_PATH", str(BASE_DIR / "db.sqlite3"))
 DATABASES = {
     'default': {
@@ -26,7 +26,7 @@ DATABASES = {
     }
 }
 
-# แก้ไข CSRF_TRUSTED_ORIGINS (ตัวการที่ทำให้ Error 500)
+# 4. CSRF_TRUSTED_ORIGINS เพื่อป้องกัน Error 500
 CSRF_TRUSTED_ORIGINS = [
     'https://www.supydev.app',
     'https://supydev.app',
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware", # สำหรับเสิร์ฟไฟล์ Static บน Production
+    "whitenoise.middleware.WhiteNoiseMiddleware", # เสิร์ฟไฟล์ Static
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,15 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Database configuration
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        "NAME": db_path,
-    }
-}
-
-# Password validation
+# 5. ลบส่วน Password validation ของเดิมที่อาจซ้ำซ้อน
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},

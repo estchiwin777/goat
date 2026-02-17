@@ -60,7 +60,7 @@ class ListViewTest(TestCase):
         parsed = lxml.html.fromstring(response.content)
         [form] = parsed.cssselect("form")
         self.assertEqual(form.get("method"), "POST")
-        self.assertEqual(form.get("action"), f"/lists/{mylist.id}/add_item")
+        self.assertEqual(form.get("action"), f"/lists/{mylist.id}/")
         
         [inputbox] = form.cssselect('input[name="item_text"]')
         self.assertEqual(inputbox.get("id"), "id_new_item")

@@ -21,8 +21,12 @@ ALLOWED_HOSTS = ['*']
 db_path = os.environ.get("DJANGO_DB_PATH", str(BASE_DIR / "db.sqlite3"))
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/src/db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql', # เปลี่ยนตัว Engine
+        'NAME': 'db_name',
+        'USER': 'db_user',
+        'PASSWORD': 'db_password',
+        'HOST': 'db_container_name', # ชื่อ service ใน docker-compose
+        'PORT': '5432',
     }
 }
 

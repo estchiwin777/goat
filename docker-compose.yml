@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db_container_name:  # ต้องตรงกับ HOST ใน settings.py
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=db_name      # ต้องตรงกับ NAME
+      - POSTGRES_USER=db_user    # ต้องตรงกับ USER
+      - POSTGRES_PASSWORD=db_password # ต้องตรงกับ PASSWORD
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db_container_name
+
+volumes:
+  postgres_data:

@@ -38,3 +38,20 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertTrue(
             any(row_text in row.text for row in rows)
         )
+    
+    def wait_for_row_in_list_table(self, row_text):
+        start_time = time.time()
+        while True:
+            try:
+                table = self.browser.find_element(By.ID, 'id_list_table')
+                rows = table.find_elements(By.TAG_NAME, 'tr')
+                # เปลี่ยนตรงนี้ครับ: เช็คว่า row_text เป็นส่วนหนึ่งของ row.text หรือไม่
+                self.assertTrue(
+                    any(row_text in row.text for row in rows),
+                    f"Could not find '{row_text}' in table"
+                )
+                return
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > 10:
+                    raise e
+                time.sleep(0.5)

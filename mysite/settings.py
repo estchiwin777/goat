@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vgx^wt+bu2)z=qmw8wp#b0l-s(h*$8tf)n=s&&ar(#=d0y%cy_')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dummy-key-for-local')
 
 # 1. แก้ไขส่วนสลับโหมด Debug (ให้ดึงค่าจาก Railway ได้จริง)
 debug_var = os.environ.get("DJANGO_DEBUG_FALSE", "False")
@@ -22,10 +22,10 @@ db_path = os.environ.get("DJANGO_DB_PATH", str(BASE_DIR / "db.sqlite3"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'goat_db'),
-        'USER': os.environ.get('DB_USER', 'wspy'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'), # 'password' คือค่าเริ่มต้นถ้าหาในระบบไม่เจอ
-        'HOST': os.environ.get('DB_HOST', 'db'),
+        'NAME': os.environ.get('DB_NAME', None),
+        'USER': os.environ.get('DB_USER', None),
+        'PASSWORD': os.environ.get('DB_PASSWORD', None),
+        'HOST': os.environ.get('DB_HOST', 'db'),  
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }

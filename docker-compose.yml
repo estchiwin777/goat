@@ -1,25 +1,24 @@
 version: '3.8'
+
 services:
-  db_container_name:  # ต้องตรงกับ HOST ใน settings.py
+  # Container ที่ 1: ฐานข้อมูล
+  db:
     image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+    container_name: goat-db  # ตั้งชื่อให้โชว์ใน docker ps
     environment:
-      - POSTGRES_DB=db_name      # ต้องตรงกับ NAME
-      - POSTGRES_USER=db_user    # ต้องตรงกับ USER
-      - POSTGRES_PASSWORD=db_password # ต้องตรงกับ PASSWORD
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
       - "5432:5432"
 
+  # Container ที่ 2: เว็บแอป (Django)
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
+    container_name: goat-web
+    env_file:
+      - .env
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
-      - db_container_name
-
-volumes:
-  postgres_data:
+      - db

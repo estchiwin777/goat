@@ -9,14 +9,5 @@ venv/
 src/db.sqlite3
 src/static
 container.db.sqlite3
-
-# เพิ่มต่อท้ายในไฟล์ .gitignore
-=
-CACHED
-[internal]
-exporting
-transferring
-unpacking
-naming
-resolve
 *.sqlite3  # ป้องกันไฟล์ฐานข้อมูลหลุดขึ้นไป (ถ้ายังไม่ได้ใส่)
+.env/
